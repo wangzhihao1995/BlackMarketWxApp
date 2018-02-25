@@ -42,7 +42,7 @@ Page({
       .then(res => {
         console.log(res)
         let data = {
-          start: that.data.start + res.data.length,
+          start: that.data.start + res.length,
           loading: false,
           inited: true
         }
