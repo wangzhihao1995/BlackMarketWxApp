@@ -40,6 +40,9 @@ Page({
     let that = this;
     (app.globalData.courses.length > 0 ? Promise.resolve({data: app.globalData.courses}) : wxw.getCourses(app.globalData.session))
       .then(res => {
+        console.log(res)
+        console.log(this.data)
+
         let courses = this.data.courses
         let courseNames = this.data.courseNames
         res.data.forEach(item => {

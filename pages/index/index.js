@@ -41,6 +41,7 @@ Page({
       this.data.filterSupply, this.data.filterDemand, this.data.filterOnlyOpen ? 0 : 1)
       .then(res => {
         console.log(res)
+        console.log(app.globalData.courses)
         let data = {
           start: that.data.start + res.length,
           loading: false,

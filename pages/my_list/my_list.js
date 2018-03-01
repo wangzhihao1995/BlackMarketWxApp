@@ -15,7 +15,7 @@ Page({
     posts: [],
     start: 0,
     limit: 10,
-    order: 0,
+    order: 'desc',
     courses: [],
     courseNames: [],
     inited: false,
@@ -257,18 +257,18 @@ Page({
   },
   toggleTimeSort(e) {
     let state = 0
-    let order = 0
+    let order = 'desc'
     switch (this.data.sortState) {
       case 0:
       case 1:
       case 2:
       case 4:
         state = 3
-        order = 1
+        order = 'asc'
         break
       case 3:
         state = 4
-        order = 0
+        order = 'desc'
         break
     }
     this.setData({

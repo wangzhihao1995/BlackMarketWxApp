@@ -40,7 +40,6 @@
                             <picker bindchange="bindDemandChange" value="{{demandIndex}}" range="{{courseNames}}"
                                     wx:if="{{!edit}}">
                                 <view class="weui-select weui-select_in-select-after">{{courses[demandIndex].name}}</view>
-                                <view class="weui-select weui-select_in-select-after">{{demandIndex}}</view>
                             </picker>
                         </view>
                     </view>
@@ -81,16 +80,16 @@
             </view>
             <view class="weui-form-preview" wx:for="{{posts}}" wx:key="id">
                 <view class="weui-form-preview__hd">
-                    <view class="weui-form-preview__item" wx:if="{{item.supply.course}}">
+                    <view class="weui-form-preview__item" wx:if="{{item.supply}}">
                         <view class="weui-form-preview__label">供</view>
                         <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'supply-style' : 'close-style' }}">
-                            {{ courses[item.supply.course.id].name}}
+                            {{ courses[item.supply.id].name }}
                         </view>
                     </view>
-                    <view class="weui-form-preview__item" wx:if="{{item.demand.course}}">
+                    <view class="weui-form-preview__item" wx:if="{{item.demand}}">
                         <view class="weui-form-preview__label">求</view>
                         <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'demand-style' : 'close-style' }}">
-                            {{ courses[item.demand.course.id].name}}
+                            {{ courses[item.demand.id].name }}
                         </view>
                     </view>
                 </view>
@@ -101,11 +100,11 @@
                     </view>
                     <view class="weui-form-preview__item">
                         <view class="weui-form-preview__label">发布日期</view>
-                        <view class="weui-form-preview__value">{{ item.create_time }}</view>
+                        <view class="weui-form-preview__value">{{ item.createTime }}</view>
                     </view>
                     <view class="weui-form-preview__item" wx:if="{{item.create_time != item.update_time}}">
                         <view class="weui-form-preview__label">更新日期</view>
-                        <view class="weui-form-preview__value">{{ item.update_time }}</view>
+                        <view class="weui-form-preview__value">{{ item.updateTime }}</view>
                     </view>
                     <view class="weui-form-preview__item" wx:if="{{item.message}}">
                         <view class="weui-form-preview__label">留言</view>

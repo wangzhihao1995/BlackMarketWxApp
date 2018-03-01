@@ -93,7 +93,7 @@ App({
         that.globalData.courses = res
         that.globalData.courseNames = []
         res.forEach(item => {
-          that.globalData.courseNames.push(item.course.name)
+          that.globalData.courseNames.push(item.name)
           that.processSchedules(item.schedules)
         })
         return Promise.resolve(that.globalData)

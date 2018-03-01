@@ -77,12 +77,12 @@ Page({
         })
       })
 
-      wxw.getViewCount(app.globalData.session)
-        .then(res => {
-          that.setData({
-            viewCount: res.data.viewcount
-          })
-        })
+      // wxw.getViewCount(app.globalData.session)
+      //   .then(res => {
+      //     that.setData({
+      //       viewCount: res.data.viewcount
+      //     })
+      //   })
     }
   },
 
