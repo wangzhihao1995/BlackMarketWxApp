@@ -34,10 +34,10 @@ Page({
       .then(res => {
         app.processData([res.data.post], null, true)
         if (res.data.post.demand.course) {
-          app.processSchedules(res.data.post.demand.course)
+          app.processSchedules(res.data.post.demand)
         }
         if (res.data.post.supply.course) {
-          app.processSchedules(res.data.post.supply.course)
+          app.processSchedules(res.data.post.supply)
         }
         that.setData({
           post: res.data.post,

@@ -96,7 +96,7 @@
 
     <view class="page__ft">
         <view class="weui-footer weui-footer_fixed-bottom">
-            <view class="weui-footer__text">Copyright © 2017 BlackMarket</view>
+            <view class="weui-footer__text">Copyright © 2018 BlackMarket</view>
         </view>
     </view>
 </view>
