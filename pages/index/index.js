@@ -38,10 +38,8 @@ Page({
     let that = this
     wx.showNavigationBarLoading()
     wxw.getPostList(app.globalData.session, this.data.order, 0, this.data.limit,
-      this.data.filterSupply, this.data.filterDemand, this.data.filterOnlyOpen ? 0 : 1)
+      this.data.filterSupply, this.data.filterDemand, this.data.filterOnlyOpen ? 0 : null)
       .then(res => {
-        console.log(res)
-        console.log(app.globalData.courses)
         let data = {
           start: that.data.start + res.length,
           loading: false,

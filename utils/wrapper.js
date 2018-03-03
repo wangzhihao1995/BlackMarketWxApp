@@ -40,7 +40,7 @@ let wxw = {
     courseUrl: baseUrl + "/api/course/",
     postUrl: baseUrl + "/api/course/post/",
     myPostUrl: baseUrl + "/api/course/post/mine",
-    viewContractUrl: baseUrl + "/api/course/post/viewcount",
+    viewContactUrl: baseUrl + "/api/course/post/viewcount",
 
     sharedPostUrl: baseUrl + "/api/course/post/",
     sharedPostImage: baseUrl + "/api/share/post/",
@@ -252,10 +252,9 @@ let wxw = {
    * @throws {NetworkError}
    */
   checkServerSession(session) {
-    return this.request(this.urls.checkSessionUrl,
-      {},
-      this.getSessionHeader(session), 'form'
-    )
+    return this.request(this.urls.checkSessionUrl, {},
+        this.getSessionHeader(session), 'form'
+      )
       .then(() => Promise.resolve(session))
       .catch(err => Promise.reject(SessionExpiredError()))
   },
@@ -291,7 +290,9 @@ let wxw = {
    */
   loginCode2Session(code) {
     let that = this
-    return this.request(this.urls.code2sessionUrl, { code: code }, {}, 'form')
+    return this.request(this.urls.code2sessionUrl, {
+        code: code
+      }, {}, 'form')
       .then(data => {
         if (data.session_key) {
           return that.setSession(data.session_key)
@@ -307,7 +308,10 @@ let wxw = {
       wx.getUserInfo({
         withCredentials: true,
         success(res) {
-          resolve({ session: session, data: res })
+          resolve({
+            session: session,
+            data: res
+          })
         },
         fail() {
           reject(new UserInfoError())
@@ -332,7 +336,7 @@ let wxw = {
         } else {
           return Promise.resolve(res)
         }
-      })    // 本地不存在时，一定未上传
+      }) // 本地不存在时，一定未上传
   },
 
   uploadUserInfo(session, result, check = false) {
@@ -340,18 +344,21 @@ let wxw = {
     return this.compareUserInfo(result, check)
       .then(res => {
         return that.request(this.urls.uploadUserInfoUrl,
-          res,
-          that.getSessionHeader(session),
-          'json', 'PUT'
-        )
+            res,
+            that.getSessionHeader(session),
+            'json', 'PUT'
+          )
           .then(data => {
             that.setStorage(that.keys.userInfo, res.userInfo).then()
             return Promise.resolve(session)
           })
           .catch(err => {
-            if (err.type && !err.data) { return Promise.reject(err) }   // NetworkError
-            else if (err.data.statusCode && err.data.statusCode >= 500) { return Promise.reject(new ServerError(err)) }
-            else return Promise.reject(new ServerError())
+            if (err.type && !err.data) {
+              return Promise.reject(err)
+            } // NetworkError
+            else if (err.data.statusCode && err.data.statusCode >= 500) {
+              return Promise.reject(new ServerError(err))
+            } else return Promise.reject(new ServerError())
           })
       })
       .catch(err => {
@@ -383,8 +390,9 @@ let wxw = {
   },
 
   getVerifyCode(session, mobile) {
-    return this.request(this.urls.verifyCodeUrl,
-      { mobile },
+    return this.request(this.urls.verifyCodeUrl, {
+        mobile
+      },
       this.getSessionHeader(session), 'json', 'POST')
   },
 
@@ -398,7 +406,24 @@ let wxw = {
   },
 
   getPostList(session, order = 'desc', start = 0, limit = 10, supply = 0, demand = 0, status = 1) {
-    return this.request(this.urls.postUrl, {order, start, limit, supply, demand, status}, this.getSessionHeader(session),
+    if (status === null) {
+      return this.request(this.urls.postUrl, {
+          order,
+          start,
+          limit,
+          supply,
+          demand
+        }, this.getSessionHeader(session),
+        'form')
+    }
+    return this.request(this.urls.postUrl, {
+        order,
+        start,
+        limit,
+        supply,
+        demand,
+        status
+      }, this.getSessionHeader(session),
       'form')
   },
 
@@ -418,27 +443,29 @@ let wxw = {
     return this.request(this.urls.myPostUrl, data, this.getSessionHeader(session), 'form')
   },
 
-  putPostStatus(session, post_id, status) {
-    return wxw.request(this.urls.postUrl + post_id + '/status', {
+  putPostStatus(session, postId, status) {
+    return wxw.request(this.urls.postUrl + postId + '/status', {
       status
     }, this.getSessionHeader(session), 'json', 'PUT')
   },
 
-  viewPostContract(session, post_id) {
-    return this.request(this.urls.viewContractUrl, {post_id}, this.getSessionHeader(session), 'json', 'PUT')
+  viewPostContact(session, postId) {
+    return this.request(this.urls.viewContactUrl, {
+      postId
+    }, this.getSessionHeader(session), 'json', 'PUT')
   },
 
-  getViewCount(session) {
-    return this.request(this.urls.viewContractUrl, {}, this.getSessionHeader(session))
+  getRemainingViewCount(session) {
+    return this.request(this.urls.viewContactUrl, {}, this.getSessionHeader(session))
   },
 
-  getSharedPost(fuzzy_post_id) {
-    return this.request(this.urls.sharedPostUrl + fuzzy_post_id, {}, {})
+  getSharedPost(fuzzyPostId) {
+    return this.request(this.urls.sharedPostUrl + fuzzyPostId, {}, {})
   },
 
-  postShare(post_id, post_type, student_id) {
+  postShare(postId, post_type, student_id) {
     let data = {
-      post_id: Number.parseInt(post_id),
+      postId: Number.parseInt(postId),
       post_type: Number.parseInt(post_type)
     }
     if (student_id) data['student_id'] = student_id
@@ -461,7 +488,7 @@ let wxw = {
     if (user_id) params.push('student_id=' + user_id)
     let param = params.join('&')
     let url = this.urls.sharedPostImage + post.id + '/image?path=' +
-      encodeURIComponent('pages/share/sharedPost?id=' + post.fuzzy_id)+ '&' + param
+      encodeURIComponent('pages/share/sharedPost?id=' + post.fuzzy_id) + '&' + param
     console.log(url)
     return this.download(url)
   },
@@ -503,7 +530,9 @@ let wxw = {
   },
 
   getUploadToken(session, ext = 'jpg') {
-    let data = { ext }
+    let data = {
+      ext
+    }
     return this.request(this.urls.uploadTokenUrl, data, this.getSessionHeader(session), 'json', 'POST')
   },
 
@@ -530,4 +559,3 @@ let wxw = {
 }
 
 module.exports = wxw
-

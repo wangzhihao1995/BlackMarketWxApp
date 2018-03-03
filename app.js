@@ -71,8 +71,8 @@ App({
   },
 
   processSchedules(data) {
-    if (data.schedules) {
-      data.schedule_label = data.schedules.map(item => {
+    if (data) {
+      data.schedule_label = data.map(item => {
         let desc = '周' + weekDays[item.day - 1] + '第' + item.start + '至' + item.end + '节'
         if (item.frequency === 'every') {
           desc = '每' + desc

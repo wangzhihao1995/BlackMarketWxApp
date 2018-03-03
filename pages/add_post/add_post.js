@@ -30,7 +30,7 @@ Page({
     wechatNo: '',
     bindInfo: {},
     edit: false,
-    post_id: 0
+    postId: 0
   },
 
   /**
@@ -69,7 +69,7 @@ Page({
           res = res.data
           let data = {
             edit: true,
-            post_id: res.post.id
+            postId: res.post.id
           }
           if (res.post.demand.course) data.demandIndex = res.post.demand.course.id
           if (res.post.supply.course) data.supplyIndex = res.post.supply.course.id
@@ -232,7 +232,7 @@ Page({
         wechat: that.data.wechatNo,
         message: that.data.message,
       }
-      wxw.editPost(app.globalData.session, data, this.data.post_id)
+      wxw.editPost(app.globalData.session, data, this.data.postId)
         .then(res => {
           app.globalData.needRefresh = true
           wx.showToast({

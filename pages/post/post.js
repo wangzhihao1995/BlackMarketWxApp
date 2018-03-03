@@ -12,19 +12,19 @@ Page({
    */
   data: {
     err: 0,
-    post_id: 0,
+    postId: 0,
     post: {},
     courses: {},
     types: [],
     typeIndex: [],
     bindInfo: null,
     init: true,
-    hasViewedContract: false,
+    hasViewedContact: false,
 
     showTopTips: false,
     TopTips: '出现错误',
 
-    viewCount: 0
+    remainingViewCount: 0
   },
 
   refreshPost(id) {
@@ -33,10 +33,11 @@ Page({
     wxw.showLoading()
     wxw.getPost(app.globalData.session, id)
       .then(res => {
-        app.processData([res.data.post], null, true)
+        console.log(res)
+        app.processData([res], null, true)
         that.setData({
-          post: res.data.post,
-          hasViewedContract: res.data.has_viewed_contact || res.data.post.student.id === app.globalData.bindInfo.id,
+          post: res,
+          hasViewedContact: res.hasViewedContact || res.student.id === app.globalData.bindInfo.id,
         })
         // wx.hideNavigationBarLoading()
         wxw.hideLoading()
@@ -57,7 +58,7 @@ Page({
     let that = this
     this.setData({
       bindInfo: app.globalData.bindInfo,
-      post_id: options.id,
+      postId: options.id,
       types: app.globalData.types,
       typeIndex: app.globalData.typeIndex
     })
@@ -77,12 +78,12 @@ Page({
         })
       })
 
-      // wxw.getViewCount(app.globalData.session)
-      //   .then(res => {
-      //     that.setData({
-      //       viewCount: res.data.viewcount
-      //     })
-      //   })
+      wxw.getRemainingViewCount(app.globalData.session)
+        .then(res => {
+          that.setData({
+            remainingViewCount: res.remainingViewCount
+          })
+        })
     }
   },
 
@@ -98,7 +99,7 @@ Page({
    */
   onShow: function () {
     if (this.data.init || app.globalData.needRefresh) {
-      this.refreshPost(this.data.post_id)
+      this.refreshPost(this.data.postId)
       if (this.data.init) this.setData({init: false})
       if (app.globalData.needRefresh) app.globalData.needRefresh = false
     }
@@ -144,7 +145,7 @@ Page({
       desc: '快来和我换课吧',
       path: '/pages/share/sharedPost?id=' + encodeURIComponent(this.data.post.fuzzy_id),
       success(res) {
-        wxw.postShare(that.data.post_id, 1, app.globalData.bindInfo.id)
+        wxw.postShare(that.data.postId, 1, app.globalData.bindInfo.id)
       }
     }
   },
@@ -164,7 +165,7 @@ Page({
 
   bindDialMobile(e) {
     let that = this
-    if (this.data.hasViewedContract) {
+    if (this.data.hasViewedContact) {
       if (this.data.post.switch === 1) {
         wx.showModal({
           title: '拨打电话',
@@ -183,12 +184,12 @@ Page({
         wxw.showMessage('该用户电话已隐藏')
       }
     } else {
-      this.viewContract()
+      this.viewContact()
     }
   },
 
   bindCopyWechat(e) {
-    if (this.data.hasViewedContract) {
+    if (this.data.hasViewedContact) {
       wxw.setClipboardData({
         data: this.data.post.wechat,
         success(res) {
@@ -200,26 +201,26 @@ Page({
         }
       })
     } else {
-      this.viewContract()
+      this.viewContact()
     }
   },
 
-  viewContract() {
+  viewContact() {
     let that = this
-    if (!this.data.hasViewedContract) {
+    if (!this.data.hasViewedContact) {
       wx.showModal({
         title: '查看联系方式',
-        content: '今天还有' + this.data.viewCount + '次查看机会，确定要查看"' + this.data.post.student.username + '"的联系方式么？',
+        content: '今天还有' + this.data.remainingViewCount + '次查看机会，确定要查看"' + this.data.post.student.username + '"的联系方式么？',
         confirmText: '确定',
         cancelText: '取消',
         success(res) {
           if (res.confirm) {
             wx.showNavigationBarLoading()
-            wxw.viewPostContract(app.globalData.session, that.data.post_id)
+            wxw.viewPostContact(app.globalData.session, that.data.postId)
               .then(res => {
                 console.log(res)
                 that.setData({
-                  hasViewedContract: true
+                  hasViewedContact: true
                 })
                 wx.hideNavigationBarLoading()
               })

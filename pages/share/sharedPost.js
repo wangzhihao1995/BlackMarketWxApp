@@ -11,14 +11,14 @@ Page({
    */
   data: {
     err: 0,
-    post_id: 0,
+    postId: 0,
     post: {},
     courses: {},
     types: [],
     typeIndex: [],
     bindInfo: null,
     inited: false,
-    hasViewedContract: false,
+    hasViewedContact: false,
 
     showTopTips: false,
     TopTips: '出现错误',
@@ -65,7 +65,7 @@ Page({
       })
     }
     this.setData({
-      post_id: options.id,
+      postId: options.id,
       types: app.globalData.types,
       typeIndex: app.globalData.typeIndex
     })
@@ -84,8 +84,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (!this.data.inited && this.data.post_id) {
-      this.refreshPost(this.data.post_id)
+    if (!this.data.inited && this.data.postId) {
+      this.refreshPost(this.data.postId)
     }
   },
 
@@ -127,7 +127,7 @@ Page({
       desc: '快来和我换课吧',
       path: '/pages/share/sharedPost?id=' + encodeURIComponent(this.data.post.id),
       success(res) {
-        wxw.postShare(that.data.post_id, 1, 0)
+        wxw.postShare(that.data.postId, 1, 0)
       }
     }
   },
