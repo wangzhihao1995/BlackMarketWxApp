@@ -38,13 +38,17 @@ let wxw = {
     verifyCodeUrl: baseUrl + "/api/student/register",
 
     courseUrl: baseUrl + "/api/course/",
-    postUrl: baseUrl + "/api/course/post/",
-    myPostUrl: baseUrl + "/api/course/post/mine",
-    viewContactUrl: baseUrl + "/api/course/post/viewcount",
+    coursePostUrl: baseUrl + "/api/course/post/",
+    myCoursePostUrl: baseUrl + "/api/course/post/mine",
+    viewCoursePostContactUrl: baseUrl + "/api/course/post/viewcount",
 
-    sharedPostUrl: baseUrl + "/api/course/post/",
-    sharedPostImage: baseUrl + "/api/share/post/",
-    sharePostNoticeUrl: baseUrl + "/api/share/post",
+    goodsPostUrl: baseUrl + "/api/goods/post/",
+    myGoodsPostUrl: baseUrl + "/api/goods/post/mine",
+    viewGoodsPostContactUrl: baseUrl + "/api/goods/post/viewcount",
+
+    sharedCoursePostUrl: baseUrl + "/api/course/post/",
+    sharedCoursePostImage: baseUrl + "/api/share/post/",
+    shareCoursePostNoticeUrl: baseUrl + "/api/share/post",
     sharedProfileUrl: baseUrl + "/api/student/share/profile/",
     sharedProfileImage: baseUrl + "/api/share/student/",
     shareProfileNoticeUrl: baseUrl + "/api/share/student",
@@ -193,7 +197,7 @@ let wxw = {
           if (data.statusCode === 200) {
             resolve(data.data)
           } else {
-            reject(new ResponseError('', data))
+            reject(new ResponseError(data.data.error.message, data.data.error))
           }
         },
         fail(err) {
@@ -405,9 +409,9 @@ let wxw = {
     return this.request(this.urls.courseUrl, {}, this.getSessionHeader(session))
   },
 
-  getPostList(session, order = 'desc', start = 0, limit = 10, supply = 0, demand = 0, status = 1) {
+  getCoursePostList(session, order = 'desc', start = 0, limit = 10, supply = 0, demand = 0, status = 1) {
     if (status === null) {
-      return this.request(this.urls.postUrl, {
+      return this.request(this.urls.coursePostUrl, {
           order,
           start,
           limit,
@@ -416,7 +420,7 @@ let wxw = {
         }, this.getSessionHeader(session),
         'form')
     }
-    return this.request(this.urls.postUrl, {
+    return this.request(this.urls.coursePostUrl, {
         order,
         start,
         limit,
@@ -427,40 +431,78 @@ let wxw = {
       'form')
   },
 
-  getPost(session, id) {
-    return this.request(this.urls.postUrl + id, {}, this.getSessionHeader(session))
+  getGoodsPostList(session, order = 'desc', start = 0, limit = 10, status = 1) {
+    if (status === null) {
+      return this.request(this.urls.goodsPostUrl, {
+          order,
+          start,
+          limit
+        }, this.getSessionHeader(session),
+        'form')
+    }
+    return this.request(this.urls.goodsPostUrl, {
+        order,
+        start,
+        limit,
+        status
+      }, this.getSessionHeader(session),
+      'form')
   },
 
-  createPost(session, data) {
-    return this.request(this.urls.postUrl, data, this.getSessionHeader(session), 'json', 'POST')
+  getCoursePost(session, id) {
+    return this.request(this.urls.coursePostUrl + id, {}, this.getSessionHeader(session))
   },
 
-  editPost(session, data, id) {
-    return this.request(this.urls.postUrl + id, data, this.getSessionHeader(session), 'json', 'PUT')
+  getGoodsPost(session, id) {
+    return this.request(this.urls.goodsPostUrl + id, {}, this.getSessionHeader(session))
   },
 
-  getMyPost(session, data) {
-    return this.request(this.urls.myPostUrl, data, this.getSessionHeader(session), 'form')
+  createCoursePost(session, data) {
+    return this.request(this.urls.coursePostUrl, data, this.getSessionHeader(session), 'json', 'POST')
   },
 
-  putPostStatus(session, postId, status) {
-    return wxw.request(this.urls.postUrl + postId + '/status', {
-      status
-    }, this.getSessionHeader(session), 'json', 'PUT')
+  createGoodsPost(session, data) {
+    return this.request(this.urls.goodsPostUrl, data, this.getSessionHeader(session), 'json', 'POST')
+  },  
+
+  editCoursePost(session, data, id) {
+    return this.request(this.urls.coursePostUrl + id, data, this.getSessionHeader(session), 'json', 'PUT')
   },
 
-  viewPostContact(session, postId) {
-    return this.request(this.urls.viewContactUrl, {
+  editGoodsPost(session, data, id) {
+    return this.request(this.urls.goodsPostUrl + id, data, this.getSessionHeader(session), 'json', 'PUT')
+  },
+
+  getMyCoursePost(session, data) {
+    return this.request(this.urls.myCoursePostUrl, data, this.getSessionHeader(session), 'form')
+  },
+
+  getMyGoodsPost(session, data) {
+    return this.request(this.urls.myGoodsPostUrl, data, this.getSessionHeader(session), 'form')
+  },
+
+  viewCoursePostContact(session, postId) {
+    return this.request(this.urls.viewCoursePostContactUrl, {
       postId
     }, this.getSessionHeader(session), 'json', 'PUT')
   },
 
-  getRemainingViewCount(session) {
-    return this.request(this.urls.viewContactUrl, {}, this.getSessionHeader(session))
+  viewGoodsPostContact(session, postId) {
+    return this.request(this.urls.viewGoodsPostContactUrl, {
+      postId
+    }, this.getSessionHeader(session), 'json', 'PUT')
+  },
+
+  getCoursePostRemainingViewCount(session) {
+    return this.request(this.urls.viewCoursePostContactUrl, {}, this.getSessionHeader(session))
+  },
+
+  getGoodsPostRemainingViewCount(session) {
+    return this.request(this.urls.viewGoodsPostContactUrl, {}, this.getSessionHeader(session))
   },
 
   getSharedPost(fuzzyPostId) {
-    return this.request(this.urls.sharedPostUrl + fuzzyPostId, {}, {})
+    return this.request(this.urls.sharedCoursePostUrl + fuzzyPostId, {}, {})
   },
 
   postShare(postId, post_type, student_id) {
@@ -469,7 +511,7 @@ let wxw = {
       post_type: Number.parseInt(post_type)
     }
     if (student_id) data['student_id'] = student_id
-    return this.request(this.urls.sharePostNoticeUrl, data, {}, 'json', 'POST')
+    return this.request(this.urls.shareCoursePostNoticeUrl, data, {}, 'json', 'POST')
   },
 
   getSharedProfile(user_id) {
@@ -478,17 +520,17 @@ let wxw = {
 
   getSharedProfileImage(user_id) {
     return this.download(this.urls.sharedProfileImage + user_id + '/image?path=' +
-      encodeURIComponent('pages/profile/profile?uid=' + user_id + '&shared=1'))
+      encodeURIComponent('pages/me/profile/profile?uid=' + user_id + '&shared=1'))
   },
 
-  getSharedPostImage(post, user_id) {
+  getSharedCoursePostImage(post, user_id) {
     let params = []
     if (post.demand.course) params.push('demand=' + post.demand.course.id)
     if (post.supply.course) params.push('supply=' + post.supply.course.id)
     if (user_id) params.push('student_id=' + user_id)
     let param = params.join('&')
-    let url = this.urls.sharedPostImage + post.id + '/image?path=' +
-      encodeURIComponent('pages/share/sharedPost?id=' + post.fuzzy_id) + '&' + param
+    let url = this.urls.sharedCoursePostImage + post.id + '/image?path=' +
+      encodeURIComponent('pages/course/share/sharedPost?id=' + post.fuzzy_id) + '&' + param
     console.log(url)
     return this.download(url)
   },

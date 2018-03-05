@@ -55,7 +55,7 @@ App({
     checkSessionUrl: "https://pkublackmarket.cn/api/wechat/check_session",
   },
 
-  onLaunch: function () {
+  onLaunch: function() {
     //调用API从本地缓存中获取数据
     // this.checkLogin()
     console.log('App onLaunch')
@@ -65,14 +65,16 @@ App({
     data.forEach(item => {
       item.createTime = moment.utc(item.createTime).format('YYYY-MM-DD HH:mm:ss')
       item.updateTime = moment.utc(item.updateTime).format('YYYY-MM-DD HH:mm:ss')
-      if (!origin && item.message.length > 15) item.message = item.message.substr(0, 15) + '...'
+      if (!origin && item.message && item.message.length > 15) item.message = item.message.substr(0, 15) + '...'
+      if (!origin && item.title && item.title.length > 20) item.title = item.title.substr(0, 20) + '...'
+      if (!origin && item.content && item.content.length > 20) item.content = item.content.substr(0, 20) + '...'
       if (cb) cb(item)
     })
   },
 
   processSchedules(data) {
     if (data) {
-      data.schedule_label = data.map(item => {
+      data = data.map(item => {
         let desc = '周' + weekDays[item.day - 1] + '第' + item.start + '至' + item.end + '节'
         if (item.frequency === 'every') {
           desc = '每' + desc
@@ -81,7 +83,8 @@ App({
         } else if (item.frequency === 'even') {
           desc += '（双周）'
         }
-        return desc
+        item.desc = desc
+        return item
       })
     }
   },
@@ -121,15 +124,15 @@ App({
         console.log('check session error')
         if (err.type) {
           switch (err.type) {
-            case ErrorTypes.Response:       // checkServerSession时服务器返回但是出错
+            case ErrorTypes.Response: // checkServerSession时服务器返回但是出错
             case ErrorTypes.SessionExpired: // checkSession超时
-            case ErrorTypes.Session:        // getSession错误
+            case ErrorTypes.Session: // getSession错误
               console.log('start login', err, err.stack)
               return wxw.wxLogin()
                 .then(code => wxw.loginCode2Session(code))
-                .catch(err => Promise.reject(err))  // LoginError || NetworkError || ServerError
+                .catch(err => Promise.reject(err)) // LoginError || NetworkError || ServerError
             default:
-              return Promise.reject(err)  //
+              return Promise.reject(err) //
           }
         } else {
           return Promise.reject(err)
@@ -165,24 +168,24 @@ App({
             case ErrorTypes.Login:
             case ErrorTypes.UserInfo:
               wx.redirectTo({
-                url: '/pages/no_auth/no_auth'
+                url: '/pages/common/no_auth/no_auth'
               })
               break
             case ErrorTypes.Server:
             case ErrorTypes.Response:
             default:
               wx.redirectTo({
-                url: '/pages/error/error?type=' + err.type + '&msg=' + err.message
+                url: '/pages/common/error/error?type=' + err.type + '&msg=' + err.message
               })
               break
             case ErrorTypes.BindInfo:
               wx.redirectTo({
-                url: '/pages/auth/auth' + (url ? ('?redirect=' + encodeURIComponent(url)) : '')
+                url: '/pages/common/auth/auth' + (url ? ('?redirect=' + encodeURIComponent(url)) : '')
               })
           }
         } else {
           wx.redirectTo({
-            url: '/pages/error/error'
+            url: '/pages/common/error/error'
           })
         }
       })

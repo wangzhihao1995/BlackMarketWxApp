@@ -1,20 +1,26 @@
 {
   "pages": [
-    "pages/splash/splash",
-    "pages/index/index",
-    "pages/auth/auth",
-    "pages/mine/mine",
-    "pages/no_auth/no_auth",
-    "pages/error/error",
-    "pages/edit_info/edit_info",
-    "pages/add_post/add_post",
-    "pages/post/post",
-    "pages/my_list/my_list",
-    "pages/license/license",
-    "pages/share/sharedPost",
-    "pages/profile/profile",
-    "pages/exchange/exchange",
-    "pages/exchange/add_exchange"
+    "pages/common/splash/splash",
+    "pages/common/auth/auth",
+    "pages/common/no_auth/no_auth",
+    "pages/common/error/error",
+    "pages/common/license/license",
+
+    "pages/course/index/index",
+    "pages/course/add_post/add_post",
+    "pages/course/post/post",
+    "pages/course/share/sharedPost",
+
+    "pages/item/index/index",
+    "pages/item/add_post/add_post",
+    "pages/item/post/post",
+    "pages/item/share/sharedPost",
+
+    "pages/me/mine/mine",
+    "pages/me/edit_info/edit_info",
+    "pages/me/my_course_post_list/my_course_post_list",
+    "pages/me/my_goods_post_list/my_goods_post_list",
+    "pages/me/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -27,22 +33,22 @@
     "selectedColor": "#000000",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "首页",
-        "iconPath": "images/homepage.png",
-        "selectedIconPath": "images/homepage_fill.png"
+        "pagePath": "pages/course/index/index",
+        "text": "Couese",
+        "iconPath": "images/course.png",
+        "selectedIconPath": "images/course_highlight.png"
       },
       {
-        "pagePath": "pages/exchange/exchange",
-        "text": "二手",
-        "iconPath": "images/homepage.png",
-        "selectedIconPath": "images/homepage_fill.png"
+        "pagePath": "pages/item/index/index",
+        "text": "Item",
+        "iconPath": "images/second_hand.png",
+        "selectedIconPath": "images/second_hand_highlight.png"
       },
       {
-        "pagePath": "pages/mine/mine",
-        "text": "我",
-        "iconPath": "images/mine.png",
-        "selectedIconPath": "images/mine_fill.png"
+        "pagePath": "pages/me/mine/mine",
+        "text": "Me",
+        "iconPath": "images/me.png",
+        "selectedIconPath": "images/me_highlight.png"
       }
     ]
   },
