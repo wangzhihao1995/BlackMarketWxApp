@@ -66,8 +66,6 @@ App({
       item.createTime = moment.utc(item.createTime).format('YYYY-MM-DD HH:mm:ss')
       item.updateTime = moment.utc(item.updateTime).format('YYYY-MM-DD HH:mm:ss')
       if (!origin && item.message && item.message.length > 15) item.message = item.message.substr(0, 15) + '...'
-      if (!origin && item.title && item.title.length > 20) item.title = item.title.substr(0, 20) + '...'
-      if (!origin && item.content && item.content.length > 20) item.content = item.content.substr(0, 20) + '...'
       if (cb) cb(item)
     })
   },

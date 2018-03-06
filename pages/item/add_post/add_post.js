@@ -14,9 +14,6 @@ Page({
     content: '',
     contentLength: 0,
 
-    title: '',
-    titleLength: 0,
-
     showTopTips: false,
     TopTips: '信息不完整',
 
@@ -47,8 +44,6 @@ Page({
           }
           data.mobileSwitch = (res.mobileSwitch === 1)
           data.wechatNo = res.wechat
-          data.title = res.title
-          data.titleLength = data.title.length
           data.content = res.content
           data.contentLength = data.content.length
           that.setData(data)
@@ -111,13 +106,6 @@ Page({
     }, 3000)
   },
 
-  bindTitleChange(e) {
-    this.setData({
-      title: e.detail.value,
-      titleLength: e.detail.value.length,
-    })
-  },
-
   bindContentChange(e) {
     this.setData({
       content: e.detail.value,
@@ -128,8 +116,6 @@ Page({
   checkInfo() {
     if (!this.data.mobileSwitch && !this.data.wechatNo) {
       this.showTopTips('请至少填写一种联系方式')
-    } else if (this.data.title.trim().length === 0) {
-      this.showTopTips('标题不能为空')
     } else if (this.data.content.trim().length === 0) {
       this.showTopTips('内容不能为空')
     } else {
@@ -144,7 +130,6 @@ Page({
    *   switch: mobileSwitch,
    *   mobile: app.globalData.bindInfo.mobile,
    *   wechat: wechat_no,
-   *   title
    *   content
    * }
    */
@@ -152,7 +137,7 @@ Page({
     let that = this
     if (this.checkInfo()) {
       let content = []
-      content.push('发布后标题不能修改，仅能修改联系方式与内容')
+      content.push('确认发布此信息吗？')
       wx.showModal({
         title: '发布确认',
         content: content.join("\n"),
@@ -165,7 +150,6 @@ Page({
               mobileSwitch: that.data.mobileSwitch ? 1 : 0,
               mobile: that.data.mobileSwitch ? app.globalData.bindInfo.mobile : '',
               wechat: that.data.wechatNo,
-              title: that.data.title,
               content: that.data.content,
             }
             wxw.createGoodsPost(app.globalData.session, data)
@@ -205,7 +189,6 @@ Page({
         mobileSwitch: that.data.mobileSwitch ? 1 : 0,
         mobile: that.data.mobileSwitch ? app.globalData.bindInfo.mobile : '',
         wechat: that.data.wechatNo,
-        title: that.data.title,
         content: that.data.content,
       }
       wxw.editGoodsPost(app.globalData.session, data, this.data.postId)

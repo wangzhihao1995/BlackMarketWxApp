@@ -95,13 +95,13 @@
 }
 
 .bm-top-button__text {
-  font-size: 12pt;
+  font-size: 10pt;
 }
 
 .bm-top-button__icon {
   margin-left: 5px;
-  height: 16px;
-  width: 16px;
+  height: 14px;
+  width: 14px;
 }
 
 .bm-top-button__expand {
@@ -161,7 +161,7 @@ text.active {
 
 .bm-floating-action-button {
   border-radius: 50%;
-  background-color: #09bb07;
+  background-color: #3CB371;
   height: 96rpx;
   width: 96rpx;
   margin: 24rpx;
@@ -242,7 +242,7 @@ text.active {
   padding-right: 8px;
   font-size: 12px;
   /*color: #576b95;*/
-  color: #09bb07;
+  color: #3CB371;
 }
 
 .bm-top-label {
@@ -257,4 +257,8 @@ text.active {
 
 .bm-m-r-md {
   margin-right: 5px;
+}
+
+.weui-form-preview__btn {
+  color: #3CB371;
 }

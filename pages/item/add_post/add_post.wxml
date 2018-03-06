@@ -3,28 +3,19 @@
     <view class="page__bd">
         <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
 
-        <!-- weui-cells -->
-        <view class="weui-cells__title">标题</view>
+        <view class="weui-cells__title">描述</view>
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-          <textarea class="weui-textarea" bindinput="bindTitleChange" placeholder="请输入标题"
-                    style="height: 3.3em" maxlength="25" value="{{title}}"/>
-                    <view class="weui-textarea-counter">{{titleLength}}/25</view>
+          <textarea class="weui-textarea" bindinput="bindContentChange" placeholder="请描述你要交换的物品"
+                    style="height: 10em" maxlength="500" value="{{content}}"/>
+                    <view class="weui-textarea-counter">{{contentLength}}/500</view>
                 </view>
             </view>
         </view>
 
-        <view class="weui-cells__title">内容</view>
-        <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell">
-                <view class="weui-cell__bd">
-          <textarea class="weui-textarea" bindinput="bindContentChange" placeholder="请输入内容"
-                    style="height: 8em" maxlength="120" value="{{content}}"/>
-                    <view class="weui-textarea-counter">{{contentLength}}/120</view>
-                </view>
-            </view>
-        </view>
+        <view class="weui-cells__title">标签（开发中）</view>
+        <view class="weui-cells__title"></view>
 
         <!-- weui-cells -->
         <view class="weui-cells__title">联系方式</view>

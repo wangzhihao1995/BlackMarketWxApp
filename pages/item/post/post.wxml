@@ -2,77 +2,10 @@
 <view class="page">
     <view class="page__bd">
         <view class="weui-toptips weui-toptips_warn" wx:if="{{showTopTips}}">{{TopTips}}</view>
-
-        <view class="weui-form-preview {{post.demand.id == 0 ? 'weui-form-preview_last' : ''}}"
-              wx:if="{{post.supply}}">
-            <view class="weui-form-preview__hd">
-                <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">提供课程</view>
-                    <view class="weui-form-preview__value_in-hd supply-style">
-                        {{ courses[post.supply.id].name}}
-                    </view>
-                </view>
-            </view>
-            <view class="weui-form-preview__bd">
-                <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">课程教师</view>
-                    <view class="weui-form-preview__value">{{ courses[post.supply.id].teacher }}</view>
-                </view>
-                <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">学分</view>
-                    <view class="weui-form-preview__value">{{ courses[post.supply.id].credit }}</view>
-                </view>
-                <view class="weui-form-preview__post" wx:if="{{courses[post.supply.id].schedules}}">
-                    <view class="weui-form-preview__label">课程安排</view>
-                    <view class="weui-form-preview__value" wx:for="{{courses[post.supply.id].schedules}}" wx:key="id">
-                        {{ item.desc }} 
-                    </view>
-                </view>
-            </view>
-
-        </view>
-
-
-        <view class="weui-form-preview {{post.demand.id != 0 ? 'weui-form-preview_last' : ''}}"
-              wx:if="{{post.demand}}">
-            <view class="weui-form-preview__hd">
-                <view class="weui-form-preview__post" >
-                    <view class="weui-form-preview__label">需求课程</view>
-                    <view class="weui-form-preview__value_in-hd demand-style">
-                        {{ courses[post.demand.id].name}}
-                    </view>
-                </view>
-            </view>
-            <view class="weui-form-preview__bd">
-                <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">课程教师</view>
-                    <view class="weui-form-preview__value">{{ courses[post.demand.id].teacher }}</view>
-                </view>
-                <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">学分</view>
-                    <view class="weui-form-preview__value">{{ courses[post.demand.id].credit }}</view>
-                </view>
-                <view class="weui-form-preview__post" wx:if="{{courses[post.demand.id].schedules}}">
-                    <view class="weui-form-preview__label">课程安排</view>
-                    <view class="weui-form-preview__value" wx:for="{{courses[post.demand.id].schedules}}" wx:key="id">
-                        {{ item.desc }} 
-                    </view>
-                </view>
-            </view>
-
-        </view>
-        <!-- 课程信息 结束 -->
-        <view class="weui-cells__title">XXXXXX</view>
+        <view class="weui-cells__title">描述</view>
         <view class="weui-cells weui-cells_after-title">
-            <view class="weui-cell" wx:if="{{post.title}}">
-                <view class="weui-cell__hd"><view class="weui-label">标题</view></view>
-                <view class="weui-cell__bd">
-                    <text>{{post.title}}</text>
-                </view>
-            </view>
             <view class="weui-cell" wx:if="{{post.content}}">
-                <view class="weui-cell__hd"><view class="weui-label">留言</view></view>
-                <view class="weui-cell__bd">
+                <view class="weui-cell">
                     <text>{{post.content}}</text>
                 </view>
             </view>

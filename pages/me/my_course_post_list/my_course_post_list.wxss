@@ -57,8 +57,8 @@
 }
 
 .bm-top-button__icon {
-    height: 16px;
-    width: 16px;
+    height: 14px;
+    width: 14px;
 }
 
 .bm-top-button__expand {
@@ -168,5 +168,8 @@ text.active {
     padding: 0 5px;
     margin-left: 5px;
     width: 80px;
+}
 
+.weui-form-preview__btn {
+  color: #3CB371;
 }
