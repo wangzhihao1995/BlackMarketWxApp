@@ -49,9 +49,9 @@
       {
         "pagePath": "pages/channel/index/index",
         "text": "Channel",
-        "iconPath": "images/channel.png",
-        "selectedIconPath": "images/channel.png"
-      },      
+        "iconPath": "images/channel.jpg",
+        "selectedIconPath": "images/channel_highlight.png"
+      },
       {
         "pagePath": "pages/me/mine/mine",
         "text": "Me",
