@@ -1,0 +1,20 @@
+<!-- index.wxml -->
+<import src="template.wxml" />
+
+<view class="page">
+  <view class="page__bd">
+        <view class="weui-loadmore__tips "></view>
+        <view class="weui-loadmore__tips "></view>
+      <image style="width: 384px; height: 256px; align:center;" src="/images/404.jpg"></image>
+    <block>
+      <view class="weui-loadmore weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">即将开放，尽请期待。</view>
+      </view>
+    </block>
+    <view class="bm-bottom-fixed-container">
+      <navigator class="bm-floating-action-button" url="">
+        <image src="/images/add_white.png" class="bm-floating-icon"></image>
+      </navigator>
+    </view>
+  </view>
+</view>

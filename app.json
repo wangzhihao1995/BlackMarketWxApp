@@ -16,6 +16,8 @@
     "pages/item/post/post",
     "pages/item/share/sharedPost",
 
+    "pages/channel/index/index",
+
     "pages/me/mine/mine",
     "pages/me/edit_info/edit_info",
     "pages/me/my_course_post_list/my_course_post_list",
@@ -44,6 +46,12 @@
         "iconPath": "images/second_hand.png",
         "selectedIconPath": "images/second_hand_highlight.png"
       },
+      {
+        "pagePath": "pages/channel/index/index",
+        "text": "Channel",
+        "iconPath": "images/channel.png",
+        "selectedIconPath": "images/channel.png"
+      },      
       {
         "pagePath": "pages/me/mine/mine",
         "text": "Me",
