@@ -2,7 +2,7 @@
 <view class="page">
     <view class="page__hd" hidden="{{edit}}">
         <view class="icon-box">
-            <icon type="info" size="88"></icon>
+            <image class="post-item-avatar" src="/images/phone.png"></image>
             <view class="icon-box__ctn">
                 <view class="icon-box__title">请确认个人信息</view>
                 <view class="icon-box__desc">Black Market 需要确认以下信息后才能使用</view>

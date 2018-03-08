@@ -463,7 +463,7 @@ let wxw = {
 
   createGoodsPost(session, data) {
     return this.request(this.urls.goodsPostUrl, data, this.getSessionHeader(session), 'json', 'POST')
-  },  
+  },
 
   editCoursePost(session, data, id) {
     return this.request(this.urls.coursePostUrl + id, data, this.getSessionHeader(session), 'json', 'PUT')

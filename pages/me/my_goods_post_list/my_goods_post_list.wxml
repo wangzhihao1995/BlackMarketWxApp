@@ -17,7 +17,7 @@
       </view>
       <view class="bm-top-container bm-top-filter-container" wx:if="{{filterShowed}}">
         <view class="weui-cells weui-cells_after-title bm-top-cells">
-          <!--<view><text>提供</text><input type="text"></input> </view>-->
+          <!--<view><text>供给</text><input type="text"></input> </view>-->
 
           <view class="weui-cell weui-cell_switch">
             <view class="weui-cell__bd">

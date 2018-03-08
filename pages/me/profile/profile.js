@@ -110,7 +110,7 @@ Page({
   },
   gotoNext() {
     if (this.data.nextUrl && this.data.urlType) {
-      if (this.data.urlType === 0) {
+      if (this.data.urlType === "0") {
         wx.redirectTo({
           url: this.data.nextUrl
         })

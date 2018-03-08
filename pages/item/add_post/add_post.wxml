@@ -7,14 +7,14 @@
         <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-          <textarea class="weui-textarea" bindinput="bindContentChange" placeholder="请描述你要交换的物品"
+          <textarea class="weui-textarea" bindinput="bindContentChange" placeholder="本版块旨在为NSDers提供一个更加垂直、更加便捷的物品交换的平台。请在这里描述你想要交易的物品，例如二手教材、课堂笔记等。目前的确还非常简陋，今后本版块会逐渐完善功能并提升用户体验，敬请期待，感谢大家。——W141940xx"
                     style="height: 10em" maxlength="500" value="{{content}}"/>
                     <view class="weui-textarea-counter">{{contentLength}}/500</view>
                 </view>
             </view>
         </view>
 
-        <view class="weui-cells__title">标签（开发中）</view>
+        <view class="weui-cells__title">标签（正在开发中）</view>
         <view class="weui-cells__title"></view>
 
         <!-- weui-cells -->

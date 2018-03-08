@@ -18,8 +18,7 @@ Page({
         sleep(500)
         if (data && data.session && data.userInfo && data.bindInfo) {
           wx.switchTab({
-            // url: '../../course/index/index'
-            url: '../../item/index/index'
+            url: '/pages/item/index/index'
           })
         }
 

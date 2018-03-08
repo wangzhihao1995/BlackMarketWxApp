@@ -148,9 +148,9 @@ Page({
     if (!this.data.mobileSwitch && !this.data.wechatNo) {
       this.showTopTips('请至少填写一种联系方式')
     } else if (this.data.supplyIndex === 0 && this.data.demandIndex === 0) {
-      this.showTopTips('请在需求和提供中至少选择一种')
+      this.showTopTips('请在需求和供给中至少选择一种')
     } else if (this.data.supplyIndex === this.data.demandIndex) {
-      this.showTopTips('需求和提供不能相同')
+      this.showTopTips('需求和供给不能相同')
     } else if (this.data.message.trim().length === 0) {
       this.showTopTips('留言不能为空')
     } else {
@@ -175,7 +175,7 @@ Page({
     if (this.checkInfo()) {
       let content = []
       if (this.data.demandIndex !== 0) content.push('需求：' + this.data.courseNames[this.data.demandIndex])
-      if (this.data.supplyIndex !== 0) content.push('提供：' + this.data.courseNames[this.data.supplyIndex])
+      if (this.data.supplyIndex !== 0) content.push('供给：' + this.data.courseNames[this.data.supplyIndex])
       content.push('供求一经发布不能修改，仅能修改联系方式与留言')
       wx.showModal({
         title: '发布确认',
@@ -203,7 +203,7 @@ Page({
                   complete() {
                     setTimeout(() => {
                       wx.switchTab({
-                        url: '../index/index'
+                        url: '/pages/course/index/index'
                       })
                     }, 2000)
                   }
@@ -248,7 +248,6 @@ Page({
         })
         .catch(err => {
           if (err.type && err.type === ErrorTypes.Response) {
-            console.log(2333333333)
             console.log(err)
             wxw.showMessage(err.message, '错误')
           }

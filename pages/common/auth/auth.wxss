@@ -4,11 +4,6 @@ icon{
     margin-right: 13px;
 }
 
-/*.page__bd {
-    padding-left: 40px;
-    padding-right: 40px;
-    text-align: left;
-}*/
 .icon-box{
     margin-bottom: 25px;
     display: flex;
@@ -35,4 +30,13 @@ icon{
 }
 .weui-footer_fixed-bottom{
     margin-bottom: 0;
+}
+.post-item-avatar{
+    float: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 90rpx;
+    height: 105rpx;
+    overflow: hidden;
+    vertical-align: left;
 }

@@ -159,7 +159,7 @@ Page({
         wxw.hideLoading()
         if (res && res.userInfo && res.bindInfo) {
           wx.switchTab({
-            url: '../index/index'
+            url: '/pages/item/index/index'
           })
         }
       })

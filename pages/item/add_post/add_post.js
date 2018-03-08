@@ -162,7 +162,7 @@ Page({
                   complete() {
                     setTimeout(() => {
                       wx.switchTab({
-                        url: '../index/index'
+                        url: '/pages/item/index/index'
                       })
                     }, 2000)
                   }

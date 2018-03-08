@@ -20,10 +20,10 @@
             </view>
             <view class="bm-top-container bm-top-filter-container" wx:if="{{filterShowed}}">
                 <view class="weui-cells weui-cells_after-title bm-top-cells">
-                    <!--<view><text>提供</text><input type="text"></input> </view>-->
+                    <!--<view><text>供给</text><input type="text"></input> </view>-->
                     <view class="weui-cell weui-cell_select">
                         <view class="weui-cell__hd weui-cell__hd_in-select-after">
-                            <view class="weui-label">提供</view>
+                            <view class="weui-label">供给</view>
                         </view>
                         <view class="weui-cell__bd">
                             <picker bindchange="bindSupplyChange" value="{{supplyIndex}}" range="{{courseNames}}"

@@ -7,7 +7,7 @@
               wx:if="{{post.supply}}">
             <view class="weui-form-preview__hd">
                 <view class="weui-form-preview__post">
-                    <view class="weui-form-preview__label">提供课程</view>
+                    <view class="weui-form-preview__label">供给课程</view>
                     <view class="weui-form-preview__value_in-hd supply-style">
                         {{ courses[post.supply.id].name}}
                     </view>

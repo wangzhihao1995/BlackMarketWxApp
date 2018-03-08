@@ -37,11 +37,11 @@
         </block>
         <!-- weui-cells -->
         <block wx:if="{{!edit || supplyIndex != 0}}">
-            <view class="weui-cells__title">提供课程</view>
+            <view class="weui-cells__title">供给课程</view>
             <view class="weui-cells weui-cells_after-title">
                 <view class="weui-cell {{edit ? '' : 'weui-cell_select'}}">
                     <view class="weui-cell__hd {{edit ? '' : 'weui-cell__hd_in-select-after'}}">
-                        <view class="weui-label">提供</view>
+                        <view class="weui-label">供给</view>
                     </view>
                     <view class="weui-cell__bd">
                         <picker bindchange="bindSupplyChange" value="{{supplyIndex}}" range="{{courseNames}}"

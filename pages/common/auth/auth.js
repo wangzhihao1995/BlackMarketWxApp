@@ -1,6 +1,8 @@
 // auth.js
 import wxw from '../../../utils/wrapper'
-import { ErrorTypes } from '../../../utils/exception'
+import {
+  ErrorTypes
+} from '../../../utils/exception'
 let app = getApp()
 Page({
 
@@ -15,9 +17,9 @@ Page({
     TopTips: "信息不完整",
 
     gradeIndex: -1,
-    grades: ['2017', '2016', '2015', '2014', '2013', '2012', '其他'],
-    grade: '',
+    grades: [2017, 2016, 2015, 2014, 2013, 2012, '其他'],
     customGrade: false,
+    grade: null,
 
     typeIndex: -1,
     types: [],
@@ -32,7 +34,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     console.log('Auth onLoad')
     let that = this
     if (options.redirect) {
@@ -69,7 +71,7 @@ Page({
       if (app.globalData.bindInfo && !this.data.edit) {
         console.log('Auth redirect to index')
         wx.switchTab({
-          url: '../index/index'
+          url: '/pages/item/index/index'
         })
       }
     }
@@ -78,23 +80,23 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
-  bindAgreeChange: function (e) {
+  bindAgreeChange: function(e) {
     this.setData({
       isAgree: !!e.detail.value.length
     })
   },
 
-  bindPhoneInput: function (e) {
+  bindPhoneInput: function(e) {
     this.setData({
       phoneNum: e.detail.value
     })
   },
 
-  bindVerifyInput: function (e) {
+  bindVerifyInput: function(e) {
     this.setData({
       verifyCode: e.detail.value
     })
@@ -103,35 +105,48 @@ Page({
     }
   },
 
-  showTopTips: function (tip) {
+  showTopTips: function(tip) {
     let that = this
     this.setData({
       TopTips: tip || that.data.TopTips,
       showTopTips: true
     })
-    setTimeout(function () {
+    setTimeout(function() {
       that.setData({
         showTopTips: false
       })
     }, 3000)
   },
 
-  submitBindPhone: function () {
+  submitBindPhone: function() {
     let that = this
-    if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null
-      && this.data.typeIndex !== -1 && (this.data.gradeIndex !== -1 ||
-      (this.data.gradeIndex === this.data.grades.length - 1 && this.data.grade.trim().length !== 0))) {
+    if (this.data.isAgree && this.data.phoneNum !== null && this.data.verifyCode !== null &&
+      this.data.typeIndex !== -1 && (this.data.gradeIndex !== -1 ||
+        (this.data.gradeIndex === this.data.grades.length - 1 && this.data.grade.trim().length !== 0))) {
       let grade = (this.data.gradeIndex !== this.data.grades.length - 1) ? this.data.grades[this.data.gradeIndex] : this.data.grade
+      if (grade == null) {
+        return wxw.showMessage("请选择或填写年级")
+      }
+      if (isNaN(Number(grade))) {
+        return wxw.showMessage("年级只能为数字")
+      }
+      if ((Number.parseInt(grade)) < 1994) {
+        return wxw.showMessage("CCER于1994年创立哦！")
+      }
+      if ((Number.parseInt(grade)) > 2018) {
+        return wxw.showMessage("你是从未来回到了过去吗？")
+      }
+
       let data = {
         mobile: this.data.phoneNum,
-        verify_code: this.data.verifyCode,
-        session_key: this.data.session,
+        verifyCode: this.data.verifyCode,
+        sessionKey: this.data.session,
         grade,
         type: this.data.types[this.data.typeIndex].value
       }
       wxw.uploadStudentInfo(this.data.session, data)
         .then(res => {
-          app.globalData.bindInfo = res.data
+          app.globalData.bindInfo = res
           app.fetchCourses()
             .then(_ => {
               wx.showToast({
@@ -139,7 +154,7 @@ Page({
                 icon: 'success',
                 duration: 2000,
                 mask: true,
-                complete: function () {
+                complete: function() {
                   setTimeout(() => {
                     if (that.data.redirect) {
                       wx.redirectTo({
@@ -147,7 +162,7 @@ Page({
                       })
                     } else {
                       wx.redirectTo({
-                        url: '/pages/me/profile/profile?uid=' + res.data.id + '&url=/pages/index/index&urlType=1'
+                        url: '/pages/me/profile/profile?uid=' + res.id + '&url=/pages/item/index/index&urlType=1'
                       })
                     }
                   }, 2000)
@@ -168,17 +183,21 @@ Page({
     }
   },
 
-  requestVerifyCode: function () {
+  requestVerifyCode: function() {
     let that = this
     if (this.data.verifyCodeCountdown === 0) {
       if (this.data.phoneNum) {
         wxw.getVerifyCode(this.data.session, this.data.phoneNum)
           .then(res => {
             console.log(res)
-            let data = { verifyCodeCountdown: 60 }
-            if (res.data.code && res.data.msg) {
-              wxw.showMessage(res.data.msg)
-              data.verifyCode = res.data.code
+            let data = {
+              verifyCodeCountdown: 60
+            }
+            if (res.msg) {
+              wxw.showMessage(res.msg)
+            }
+            if (res.code) {
+              data.verifyCode = res.code
             }
             that.setData(data)
             that.countdown(that)
@@ -186,8 +205,8 @@ Page({
           .catch(err => {
             if (err.type && err.type === ErrorTypes.Response) {
               console.log(err)
-              if (err.data.data.error.message) {
-                wxw.showMessage(err.data.data.error.message)
+              if (err && err.data && err.data.message) {
+                wxw.showMessage(err.data.message)
               } else {
                 wxw.showMessage('获取验证码时出现错误，请重试')
               }

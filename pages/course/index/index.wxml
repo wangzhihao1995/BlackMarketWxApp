@@ -17,10 +17,10 @@
       </view>
       <view class="bm-top-container bm-top-filter-container" wx:if="{{filterShowed}}">
         <view class="weui-cells weui-cells_after-title bm-top-cells">
-          <!--<view><text>提供</text><input type="text"></input> </view>-->
+          <!--<view><text>供给</text><input type="text"></input> </view>-->
           <view class="weui-cell weui-cell_select">
             <view class="weui-cell__hd weui-cell__hd_in-select-after">
-              <view class="weui-label">提供</view>
+              <view class="weui-label">供给</view>
             </view>
             <view class="weui-cell__bd">
               <picker bindchange="bindSupplyChange" value="{{supplyIndex}}" range="{{courseNames}}" wx:if="{{!edit}}">
@@ -70,7 +70,7 @@
     <view class="timeline" wx:if="{{!inputShowed || !filterShowed}}">
       <view class="bm-top-filter-label" hidden="true">
         <text class="bm-top-label">当前筛选</text>
-        <text class="bm-top-text" wx:if="{{filterSupply != 0}}">提供：{{courses[supplyIndex].name}}</text>
+        <text class="bm-top-text" wx:if="{{filterSupply != 0}}">供给：{{courses[supplyIndex].name}}</text>
         <text class="bm-top-text" wx:if="{{filterDemand != 0}}">需求：{{courses[demandIndex].name}}</text>
         <text class="bm-top-text" wx:if="{{filterOnlyOpen}}">仅显示可交易</text>
       </view>
