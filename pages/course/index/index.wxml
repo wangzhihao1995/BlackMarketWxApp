@@ -79,13 +79,13 @@
           <view class="weui-form-preview__item" wx:if="{{item.supply}}">
             <view class="weui-form-preview__label">供</view>
             <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'supply-style' : 'close-style' }}">
-              {{ courses[item.supply.id].name }}
+              {{ item.supply.name }}
             </view>
           </view>
           <view class="weui-form-preview__item" wx:if="{{item.demand}}">
             <view class="weui-form-preview__label">求</view>
             <view class="weui-form-preview__value_in-hd {{ item.status == 0 ? 'demand-style' : 'close-style' }}">
-              {{ courses[item.demand.id].name }}
+              {{ item.demand.name }}
             </view>
           </view>
         </view>

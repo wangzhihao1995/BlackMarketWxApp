@@ -9,22 +9,22 @@
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">供给课程</view>
                     <view class="weui-form-preview__value_in-hd supply-style">
-                        {{ courses[post.supply.id].name}}
+                        {{ post.supply.name}}
                     </view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">课程教师</view>
-                    <view class="weui-form-preview__value">{{ courses[post.supply.id].teacher }}</view>
+                    <view class="weui-form-preview__value">{{ post.supply.teacher }}</view>
                 </view>
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">学分</view>
-                    <view class="weui-form-preview__value">{{ courses[post.supply.id].credit }}</view>
+                    <view class="weui-form-preview__value">{{ post.supply.credit }}</view>
                 </view>
                 <view class="weui-form-preview__post" wx:if="{{courses[post.supply.id].schedules}}">
                     <view class="weui-form-preview__label">课程安排</view>
-                    <view class="weui-form-preview__value" wx:for="{{courses[post.supply.id].schedules}}" wx:key="id">
+                    <view class="weui-form-preview__value" wx:for="{{post.supply.schedules}}" wx:key="id">
                         {{ item.desc }} 
                     </view>
                 </view>
@@ -39,22 +39,22 @@
                 <view class="weui-form-preview__post" >
                     <view class="weui-form-preview__label">需求课程</view>
                     <view class="weui-form-preview__value_in-hd demand-style">
-                        {{ courses[post.demand.id].name}}
+                        {{ post.demand.name}}
                     </view>
                 </view>
             </view>
             <view class="weui-form-preview__bd">
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">课程教师</view>
-                    <view class="weui-form-preview__value">{{ courses[post.demand.id].teacher }}</view>
+                    <view class="weui-form-preview__value">{{ post.demand.teacher }}</view>
                 </view>
                 <view class="weui-form-preview__post">
                     <view class="weui-form-preview__label">学分</view>
-                    <view class="weui-form-preview__value">{{ courses[post.demand.id].credit }}</view>
+                    <view class="weui-form-preview__value">{{ post.demand.credit }}</view>
                 </view>
                 <view class="weui-form-preview__post" wx:if="{{courses[post.demand.id].schedules}}">
                     <view class="weui-form-preview__label">课程安排</view>
-                    <view class="weui-form-preview__value" wx:for="{{courses[post.demand.id].schedules}}" wx:key="id">
+                    <view class="weui-form-preview__value" wx:for="{{post.demand.schedules}}" wx:key="id">
                         {{ item.desc }} 
                     </view>
                 </view>
